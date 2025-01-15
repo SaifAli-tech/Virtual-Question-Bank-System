@@ -42,7 +42,7 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       try {
         const result = await signIn("credentials", {
-          redirect: false, // Disable automatic redirection
+          redirect: false,
           email: values.email,
           password: values.password,
         });

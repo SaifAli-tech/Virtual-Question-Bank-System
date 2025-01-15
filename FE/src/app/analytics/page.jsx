@@ -18,6 +18,7 @@ import { useSession } from "next-auth/react";
 const AnalyticsPage = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const userRole = session?.user?.role?.name;
   const searchParams = useSearchParams();
   const urlSearch = searchParams.get("search");
   const [searchTerm, setSearchTerm] = useState(urlSearch || "");
@@ -80,15 +81,17 @@ const AnalyticsPage = () => {
         Analytics
       </Typography>
 
-      <Box className="flex justify-center mb-6">
-        <TextField
-          placeholder="Enter code..."
-          variant="outlined"
-          className="mr-4 w-1/4 rounded-lg"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </Box>
+      {userRole !== "Student" && (
+        <Box className="flex justify-center mb-6">
+          <TextField
+            placeholder="Enter code..."
+            variant="outlined"
+            className="mr-4 w-1/4 rounded-lg"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </Box>
+      )}
 
       <Box className="flex justify-center mb-6">
         <ToggleButtonGroup

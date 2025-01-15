@@ -41,8 +41,8 @@ const pageNumbers = [5, 10, 15, 20];
 
 const TopicList = () => {
   const router = useRouter();
-  const { session } = useSession();
-  const userRole = session.user.role.name;
+  const { data: session } = useSession();
+  const userRole = session?.user?.role?.name;
   const searchParams = useSearchParams();
   const urlPage = searchParams.get("page");
   const urlRecords = searchParams.get("take");

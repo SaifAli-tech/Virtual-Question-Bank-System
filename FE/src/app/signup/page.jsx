@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 import {
   Link,
   Button,
@@ -12,11 +11,14 @@ import {
   InputAdornment,
   Avatar,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import axios, { AxiosError } from "axios";
+import { signIn } from "next-auth/react";
+import { Router } from "next/router";
 
 const SignupPage = () => {
   const router = useRouter();
@@ -70,7 +72,12 @@ const SignupPage = () => {
           title: "Success",
           text: `Registered successfully!`,
         });
-        router.push("/login");
+        await signIn("credentials", {
+          redirect: false,
+          email: values.email,
+          password: values.password,
+        });
+        router.push("/preparation");
       } catch (error) {
         if (error instanceof AxiosError) {
           Swal.fire({

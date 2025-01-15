@@ -109,6 +109,11 @@ const SidebarLayout = ({ children }) => {
       href: "/analytics",
       roles: ["Admin", "Teacher", "Student"],
     },
+    {
+      text: "Support",
+      href: "/support",
+      roles: ["Student"],
+    },
   ];
 
   const filteredMenuItems = menuItems.filter((item) =>
